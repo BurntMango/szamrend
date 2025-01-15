@@ -1,0 +1,13 @@
+#ellenőrizzük hogy pontosan egy paramétert kaptunk
+if [[ $# -ne 1 ]]; then
+            echo "Hiba: Pontosan egy paraméter szükséges." >&2
+                exit 1
+fi
+
+#A paraméter értéke
+szam=$1
+# Az ötödik hatvány kiszámítása
+result=$((szam ** 5))
+
+# Kiírjuk az eredményt
+echo "$result"
