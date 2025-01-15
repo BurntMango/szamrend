@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Ellenőrizzük, hogy megadták-e a fájl nevét paraméterként
+if [[ $# -ne 1 ]]; then
+    echo "Használat: $0 <fájl>"
+    exit 1
+fi
+
+# Fájl neve az első paraméterből
+file=$1
+
+# Ellenőrizzük, hogy a fájl létezik-e
+if [[ ! -f $file ]]; then
+    echo "A megadott fájl nem létezik: $file"
+    exit 1
+fi
+
+# Beolvassuk a fájlt és szűrjük az irányítószám alapján
+while IFS=";" read -r irsz varos tobbi; do
+    if [[ $irsz -lt 2000 ]]; then
+        echo "$varos"
+    fi
+done < "$file"
