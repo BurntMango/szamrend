@@ -1,0 +1,6 @@
+cat *.txt | wc -w
+result: 6
+
+ha egyenként kell:
+wc -w *.txt
+result: 6 text.txt
