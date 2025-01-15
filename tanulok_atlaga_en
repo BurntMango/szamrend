@@ -1,0 +1,24 @@
+$input1 = Import-CSV -Delimiter ";" -Path "$PSScriptRoot\jegyek.txt" -Header "név"
+$input = Get-Content -Path .\jegyek.txt
+$arrayLength = $input.Count
+$save=For ($i=0; $i -le $($arrayLength+$arrayLength-1); $i++){
+$ember = $input.Split(";")
+$jegyek = $ember[$i].Split(" ")
+if($i % 2){
+$jegyek
+if($i -le$($arrayLength+$arrayLength-2)){
+";"
+}
+}
+}
+$arrayLength = $save.Count
+$arrayLength2 = $save.Count
+For ($i=0; $i -le $($arrayLength2); $i++){
+$temp=$save.Split(";")
+For ($i=0; $i -le $($arrayLength2); $i++){
+if ($arrayLength2 -le 5){
+Write-Host $input1[$i]
+}
+}
+}
+$temp
