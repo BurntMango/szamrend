@@ -1,0 +1,19 @@
+param (
+    [int]$1,  # A téglalap szélessége
+    [int]$2  # A téglalap magassága
+)
+$width = $1
+$height = $2
+# Töröljük a képernyőt
+Clear-Host
+
+# Kirajzoljuk a téglalapot
+for ($i = 1; $i -le $height; $i++) {
+    if ($i -eq 1 -or $i -eq $height) {
+        # Az első és az utolsó sor teljesen kitöltött
+        Write-Output ("#" * $width)
+    } else {
+        # A középső sorok az elején és végén '#' karakterekkel, középen pedig szóközökkel
+        Write-Output ("#" + (" " * ($width - 2)) + "#")
+    }
+}
