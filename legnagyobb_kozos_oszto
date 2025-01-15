@@ -1,0 +1,22 @@
+# Bekéri a felhasználótól a két számot
+$number1 = Read-Host "Add meg az első számot"
+$number2 = Read-Host "Add meg a második számot"
+
+# A legnagyobb közös osztó (GCD) kiszámítása
+function Get-GCD {
+    param (
+        [int]$a,
+        [int]$b
+    )
+
+    while ($b -ne 0) {
+        $temp = $b
+        $b = $a % $b
+        $a = $temp
+    }
+    return $a
+}
+
+# Kiszámítjuk és kiírjuk a GCD-t
+$gcd = Get-GCD -a $number1 -b $number2
+Write-Output "A legnagyobb közös osztó: $gcd"
