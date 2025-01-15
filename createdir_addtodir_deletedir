@@ -1,0 +1,20 @@
+# A funkció, ami elvégzi a feladatokat
+function Perform-Tasks {
+    # 1. Feladat: Létrehozza a 'Kifli' nevű könyvtárat
+    Write-Output "Létrehozom a 'Kifli' könyvtárat..."
+    New-Item -ItemType Directory -Path ".\Kifli" -Force | Out-Null
+
+    # 2. Feladat: Létrehozza a 'valami.txt' fájlt a 'Kifli' könyvtárban
+    Write-Output "Létrehozom a 'valami.txt' fájlt a 'Kifli' könyvtárban..."
+    New-Item -ItemType File -Path ".\Kifli\valami.txt" -Force | Out-Null
+
+    # 3. Feladat: Törli a 'Kifli' könyvtárat és annak tartalmát
+    Write-Output "Törlöm a 'Kifli' könyvtárat és annak tartalmát..."
+    Remove-Item -Path ".\Kifli" -Recurse -Force | Out-Null
+
+    # Visszatérés igaz értékkel
+    return $true
+}
+
+# A funkció meghívása
+Perform-Tasks
