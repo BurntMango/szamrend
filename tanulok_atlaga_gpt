@@ -1,0 +1,51 @@
+# A szöveges fájl elérési útja
+$filePath = Read-Host "Add meg a szöveges fájl elérési útját"
+
+# Ellenőrizzük, hogy létezik-e a fájl
+if (-not (Test-Path $filePath)) {
+    Write-Error "A fájl nem található!"
+    exit 1
+}
+
+# Beolvassuk a fájl tartalmát
+$lines = Get-Content $filePath
+
+# Először a kevesebb mint 5 jeggyel rendelkező tanulók listáját gyűjtjük
+$lessThanFive = @()
+# Ezután a 5 vagy több jeggyel rendelkező tanulók listáját
+$greaterThanOrEqualFive = @()
+
+# Feldolgozzuk a sorokat
+foreach ($line in $lines) {
+    # Az egyes sorokat név és jegyek részre bontjuk
+    $parts = $line -split ';'
+    
+    # A név a sor első része
+    $name = $parts[0]
+    
+    # A jegyek a második rész, szóközökkel elválasztva
+    $grades = $parts[1] -split ' '
+    
+    # Ha legalább 5 jegy van, számoljuk ki az átlagot
+    if ($grades.Count -ge 5) {
+        # Jegyek átalakítása egész számokká
+        $grades = $grades | ForEach-Object { [int]$_ }
+        
+        # Az összeg kiszámolása
+        $sum = ($grades | Measure-Object -Sum).Sum
+        # Az átlag számítása
+        $average = $sum / $grades.Count
+        
+        # Hozzáadjuk a 5 vagy több jeggyel rendelkező listához
+        $greaterThanOrEqualFive += "$name;$([math]::Round($average, 2))"
+    } else {
+        # Ha kevesebb mint 5 jegy van, csak a nevet írjuk ki
+        $lessThanFive += $name
+    }
+}
+
+# Először a kevesebb mint 5 jeggyel rendelkező személyek nevei
+$lessThanFive | ForEach-Object { Write-Output $_ }
+
+# Ezután a 5 vagy több jeggyel rendelkező személyek nevei és átlagai
+$greaterThanOrEqualFive | ForEach-Object { Write-Output $_ }
