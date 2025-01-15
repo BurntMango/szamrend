@@ -1,0 +1,1 @@
+touch tesztfile.txt && chmod 644 tesztfile.txt
