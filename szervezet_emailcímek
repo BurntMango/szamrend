@@ -1,0 +1,33 @@
+param (
+    [string]$organization  # Paraméter a szervezet nevéhez
+)
+
+# Ellenőrizzük, hogy a paraméter megfelelő formátumban van-e
+if ($organization -and ($organization -match "\s" -or $organization.Split(' ').Count -gt 1)) {
+    Write-Error "Hiba: A paraméternek pontosan egy szónyi szöveget kell tartalmaznia, vagy üresnek kell lennie!"
+    exit 1
+}
+
+# Ha a paraméter üres, akkor a 'szervezet' kerül a helyére
+if (-not $organization) {
+    $organization = "szervezet"
+}
+
+# Bemeneti fájl elérési útja
+$filePath = Read-Host "Add meg a szöveges fájl elérési útját"
+
+# Ellenőrizzük, hogy létezik-e a fájl
+if (-not (Test-Path $filePath)) {
+    Write-Error "A megadott fájl nem található!"
+    exit 1
+}
+
+# Beolvassuk a fájl tartalmát
+$names = Get-Content $filePath
+
+# Generáljuk az email címeket és írjuk ki a kimenetre
+foreach ($name in $names) {
+    # Email cím generálása
+    $email = "$name@$organization.elte.hu"
+    Write-Output $email
+}
