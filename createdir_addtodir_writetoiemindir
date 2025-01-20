@@ -1,0 +1,7 @@
+New-Item -ItemType Directory -Path ".\Kifli" -Force | Out-Null
+for ($i = 1; $i -le 5; $i++) {
+    $filename="file"
+    $filename=$filename+$i+".txt"
+    New-Item -ItemType File -Path "\Kifli\$filename" -Force | Out-Null
+    "ez a $filename tartalma" | Out-File -FilePath "\Kifli\$filename"
+    }
