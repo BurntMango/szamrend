@@ -1,0 +1,20 @@
+param (
+    [string]$1
+    )
+$lines = Get-Content -Path .\$1
+
+if (-not $lines){
+    Write-Error "a file üres"
+}
+
+Write-Output "a file tartlama:"
+$lines | ForEach-Object { Write-Output $_ }
+
+$processedLines = $lines | ForEach-Object {
+    $lowername = $_.ToLower()
+    $namelength = $lowername.Length
+    "$lowername ($namelength)"
+}
+
+Write-Output "kisbetusek számolva:"
+$processedLines | ForEach-Object { Write-Output $_ }
