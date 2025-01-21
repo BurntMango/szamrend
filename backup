@@ -1,0 +1,32 @@
+$dir=Read-Host "adja meg a backup-oldandó mappa nevét"
+
+if (-not (Test-Path $dir)){
+    Write-Error "a mappa nem létezik"
+    exit
+}
+
+$backup=Read-Host "adja meg a backup mappa helyét"
+
+if (-not (Test-Path $backup)){
+    New-Item -ItemType -Directory -Path $backup | Out-Null
+    Write-Host "a backup mappa létrehozva itt: $backup"
+}
+
+Write-Host "a mappa tartalma:"
+$files= Get-ChildItem -Path $dir
+$file | ForEach-Object {
+    Write-Host $_.FullName
+}
+
+$filteredFiles = $files | Where-Object { $_.Name -like "*backup*" }
+
+if (-Not $filteredFiles){
+    Write-Host "nincsenek backupolandó file-ok"
+    exit
+}
+
+$filteredFiles | ForEach-Object {
+    $destination = Join-Path -Path $backup -ChildPath $_.Name
+    Copy-Item -Path $_.FullName -Destination $destination -Force
+    Write-Host "Másolva: $($_.name)"
+}
