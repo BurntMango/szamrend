@@ -1,0 +1,16 @@
+$lines = Get-Content -Path  "C:\Users\samu\Documents\szamrend\emberek2.txt"
+if (-not $lines) {Write-Error "a file üres"}
+$lines | ForEach-Object {
+    $temp=$_.Split(";")
+    $sum=0
+    $legroszabb=5
+    $legjobb=1
+    $jegyek = $temp[1].Split(" ")
+    $jegyek | ForEach-Object {
+        $sum+=$_
+        if($legroszabb -gt $_){ $legroszabb = $_ }
+        if($legjobb -lt $_){ $legjobb = $_ }
+    }
+    $atlag=$sum/$jegyek.Count
+    Write-Host $temp[0] "Átlag: $atlag, legjobb: $legjobb, legroszabb $legroszabb"
+}
