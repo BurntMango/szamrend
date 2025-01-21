@@ -1,0 +1,27 @@
+$file = Read-Host "adja meg a txt file elérhetési útvonalát"
+$lines = Get-Content -Path $file
+if (-not $lines){
+    Write-Error "a file üres"
+}
+
+Write-Output "a file tartlama:"
+$lines | ForEach-Object { Write-Output $_ }
+
+$sorcount= $lines.Count
+
+$szocount=0
+$lines | ForEach-Object {
+    $temp=$_.Split(" ")
+    $szocount+=$temp.Count
+}
+
+$charcount=0
+$lines | ForEach-Object {
+    $charcount += $_.Length
+    $charcount -= 1 #end of line karaktert számoltuk
+}
+
+Write-Host "$sorcount"
+Write-Host "$szocount"
+Write-Host "$charcount"
+
